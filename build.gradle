@@ -1,0 +1,35 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.21.RELEASE'
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+apply plugin: 'org.springframework.boot'
+
+repositories {
+    mavenCentral()
+}
+
+test{
+    useJUnitPlatform()
+}
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    compile 'org.junit.jupiter:junit-jupiter:5.4.2'
+    compile 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:1.50.5'
+
+}
+
+group 'LibraryManagement'
+version '1.0-SNAPSHOT'

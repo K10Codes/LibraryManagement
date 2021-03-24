@@ -1,0 +1,11 @@
+<div class="wrapper">
+  <div>
+    <button id="allBooks" type="button" class="btn btn-primary" onclick={{route-action 'loadAllBooks'}}>All Books</button>
+    <button id="userBooks" type="button" class="btn btn-outline-primary" onclick={{route-action 'loadUserBooks'}}>My Books</button>
+  </div>
+  {{#if allBooks}}
+    {{all-books books=books callback='loadAllBooks'}}
+  {{else}}
+    {{user-books books=books callback='loadUserBooks'}}
+  {{/if}}
+</div>
