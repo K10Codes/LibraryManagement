@@ -38,7 +38,7 @@ export default class LibraryRoute extends Route{
    fetchUserBooks(){
      let request = {
         type: 'GET',
-        url: "/api/library/books/User1",
+        url: "/api/library/books/issued",
         success: (books) => {
             this.controller.set('allBooks', false);
             this.controller.set("books", books);

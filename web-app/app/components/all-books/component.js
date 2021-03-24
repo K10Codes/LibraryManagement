@@ -13,10 +13,12 @@ export default class AllBooks extends Component{
   borrow(bookId){
     let request = {
         type: 'POST',
-        url: "/api/library/books/"+bookId+"/borrow?userId=User1",
+        url: "/api/library/books/"+bookId+"/borrow",
         success: () => {
             this.set('messageData',{success:true,message:'Book issued successfully.'});
-            this.sendAction('callback');
+            if(this.callback){
+              this.sendAction('callback');
+            }
         },
         fail: (xhr) =>{
             this.set('messageData',{success:false,message:xhr.responseJSON.message});

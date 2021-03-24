@@ -11,12 +11,12 @@ export default class UserBooks extends Component{
   }
 
   @action
-  release(bookId){
+  return(bookId){
     let request = {
         type: 'POST',
-        url: "/api/library/books/"+bookId+"/borrow?userId=User1",
+        url: "/api/library/books/"+bookId+"/return",
         success: (books) => {
-            this.set('messageData',{success:true,message:'Book issued successfully.'});
+            this.set('messageData',{success:true,message:'Book returned successfully.'});
             this.sendAction('callback');
         },
         fail: (xhr) =>{

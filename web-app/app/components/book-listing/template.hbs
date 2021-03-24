@@ -1,4 +1,4 @@
-<table class="table table-striped">
+<table id="bookList" class="table table-striped">
   <thead >
   <th>S.No.</th>
   <th>Name</th>
@@ -10,7 +10,7 @@
       <td>{{increment index}}</td>
       <td>{{book.name}}</td>
       <td>{{book.author}}</td>
-      <td><button class="btn btn-info" onclick={{action buttonAction book.id}}>{{buttonText}}</button></td>
+      <td><button class="btn btn-info" id={{buttonId}} onclick={{action buttonAction book.id}}>{{buttonText}}</button></td>
     </tr>
   {{/each}}
   </tbody>

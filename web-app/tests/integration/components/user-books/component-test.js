@@ -1,26 +1,43 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
-import { hbs } from 'ember-cli-htmlbars';
+import {module, test} from 'qunit';
+import {setupRenderingTest} from 'ember-qunit';
+import {render, click, findAll} from '@ember/test-helpers';
+import hbs from 'htmlbars-inline-precompile';
+import Service from '@ember/service';
 
 module('Integration | Component | user-books', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+  hooks.beforeEach(function (assert) {
 
-    await render(hbs`<UserBooks />`);
+    this.books = getUserBooks();
+    const ajaxRequest = Service.extend({
+      makeAjaxRequest(request){
+        if(request.type=='POST'){
+          assert.equal(true,request.url.includes("/id1"),'Book id for release request is correct');
+          request.success();
+        }
+      }
+    });
 
-    assert.equal(this.element.textContent.trim(), '');
+    this.owner.register('service:ajaxRequest', ajaxRequest);
+    this.ajaxRequest = this.owner.lookup('service:ajaxRequest');
 
-    // Template block usage:
-    await render(hbs`
-      <UserBooks>
-        template block text
-      </UserBooks>
-    `);
+  });
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+
+  test('it renders list of books', async function(assert) {
+    await render(hbs`{{user-books books=books ajaxRequest=ajaxRequest}}`);
+    assert.equal(2,$('#bookList tr').length,'One row for each book rendered');
+    assert.equal(4,$('#bookList tr:first td').length,'Four columns for each book rendered.');
+    assert.equal("Return",$('#bookList tr:first td:last button').text(),'Borrow book button visible.');
+  });
+
+  test('user can return a book', async function(assert) {
+    await render(hbs`{{user-books books=books ajaxRequest=ajaxRequest}}`);
+    $('#bookList tr:first td:last button').click();
   });
 });
+
+function getUserBooks(){
+  return [{"id":"id1","name":"Book1","author":"Author1"},{"id":"id2","name":"Book2","author":"Author2"}];
+}

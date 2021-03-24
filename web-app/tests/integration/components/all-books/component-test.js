@@ -9,14 +9,12 @@ module('Integration | Component | all-books', function(hooks) {
 
   hooks.beforeEach(function (assert) {
 
-    this.owner.register('service:session', session);
-    this.session = this.owner.lookup('service:session');
-
     this.books = getAllBooks();
     const ajaxRequest = Service.extend({
       makeAjaxRequest(request){
         if(request.type=='POST'){
-          assert.equal(request.contains)
+          assert.equal(true,request.url.includes("/id1"),'Book id for borrow request is correct');
+          request.success();
         }
       }
     });
@@ -27,10 +25,16 @@ module('Integration | Component | all-books', function(hooks) {
   });
 
 
-  test('it renders', async function(assert) {
-    await render(hbs`{{all-books books=books}}`);
-      let length = findAll('.btn-login').length;
-    assert.equal(1, length, 'Length of element should be 1');
+  test('it renders list of books', async function(assert) {
+    await render(hbs`{{all-books books=books ajaxRequest=ajaxRequest}}`);
+    assert.equal(2,$('#bookList tr').length,'One row for each book rendered');
+    assert.equal(4,$('#bookList tr:first td').length,'Four columns for each book rendered.');
+    assert.equal("Borrow",$('table tr:first td:last button').text(),'Borrow book button visible.');
+  });
+
+  test('user can borrow a book', async function(assert) {
+    await render(hbs`{{all-books books=books ajaxRequest=ajaxRequest}}`);
+    $('#bookList tr:first td:last button').click();
   });
 
 });
