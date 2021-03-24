@@ -1,2 +1,4 @@
 {{status-bar messageData=messageData}}
-{{book-listing books buttonText='Return' books=books buttonAction = (action 'return')}}
+{{#if books.length}}
+  {{book-listing books buttonText='Return' books=books buttonAction = (action 'return')}}
+{{/if}}

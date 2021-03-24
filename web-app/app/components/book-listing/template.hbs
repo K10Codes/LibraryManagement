@@ -3,6 +3,7 @@
   <th>S.No.</th>
   <th>Name</th>
   <th>Author</th>
+  <th>No. of Copies</th>
   </thead>
   <tbody>
   {{#each books as |book index|}}
@@ -10,6 +11,7 @@
       <td>{{increment index}}</td>
       <td>{{book.name}}</td>
       <td>{{book.author}}</td>
+      <td>{{book.copies}}</td>
       <td><button class="btn btn-info" id={{buttonId}} onclick={{action buttonAction book.id}}>{{buttonText}}</button></td>
     </tr>
   {{/each}}

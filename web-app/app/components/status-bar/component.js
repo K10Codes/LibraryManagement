@@ -5,12 +5,7 @@ import {later} from '@ember/runloop';
 export default Component.extend({
 
     statusBarId : 'status-bar',
-    messageData : '',
-    message : '',
 
-    init() {
-        this._super(...arguments);
-    },
     showNotification(message, notificationCls) {
         const allClass= 'alert-success alert-danger';
         $(`#${this.statusBarId}`).removeClass(allClass)
