@@ -4,7 +4,7 @@
     <button id="userBooks" type="button" class="btn btn-outline-primary" onclick={{route-action 'loadUserBooks'}}>My Books</button>
   </div>
   {{#if allBooks}}
-    {{all-books books=books callback='loadAllBooks'}}
+    {{all-books books=books view = view callback='loadAllBooks'}}
   {{else}}
     {{user-books books=books callback='loadUserBooks'}}
   {{/if}}

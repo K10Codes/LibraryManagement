@@ -1,9 +1,11 @@
 <table id="bookList" class="table table-striped">
-  <thead >
+  <thead>
   <th>S.No.</th>
   <th>Name</th>
   <th>Author</th>
-  <th>No. of Copies</th>
+  {{#each additionalFields as |field|}}
+    <th>{{field.header}}</th>
+  {{/each}}
   </thead>
   <tbody>
   {{#each books as |book index|}}
@@ -11,8 +13,12 @@
       <td>{{increment index}}</td>
       <td>{{book.name}}</td>
       <td>{{book.author}}</td>
-      <td>{{book.copies}}</td>
-      <td><button class="btn btn-info" id={{buttonId}} onclick={{action buttonAction book.id}}>{{buttonText}}</button></td>
+      {{#each additionalFields as |field|}}
+        <td>{{get-property book field.value}}</td>
+      {{/each}}
+      {{#if button}}
+        <td><button class="btn btn-info" id={{button.id}} onclick={{action buttonAction book.id}}>{{button.text}}</button></td>
+      {{/if}}
     </tr>
   {{/each}}
   </tbody>

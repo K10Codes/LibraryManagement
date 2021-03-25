@@ -1,4 +1,4 @@
 {{status-bar messageData=messageData}}
 {{#if books.length}}
-  {{book-listing books buttonText='Borrow' buttonId='borrow' books=books buttonAction = (action 'borrow')}}
+  {{book-listing additionalFields=additionalFields button=button books=books buttonAction = (action 'borrow')}}
 {{/if}}

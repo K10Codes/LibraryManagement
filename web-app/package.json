@@ -60,7 +60,8 @@
     "qunit": "^2.14.0",
     "qunit-dom": "^1.6.0",
     "ember-route-action-helper": "2.0.7",
-    "@ember/jquery": "^1.1.0"
+    "@ember/jquery": "^1.1.0",
+    "ember-decorators": "^6.1.1"
   },
   "engines": {
     "node": "10.* || >= 12"

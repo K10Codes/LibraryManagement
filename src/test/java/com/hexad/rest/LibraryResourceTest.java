@@ -34,10 +34,10 @@ class LibraryResourceTest {
     void noBooksReturned() throws Exception {
         List<Book> books = Collections.EMPTY_LIST;
         when(library.getAvailableBooks()).thenReturn(books);
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/library/books")
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/library/books/all")
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
-        verify(library, times(1)).getAvailableBooks();
+        verify(library, times(1)).getAllBooks();
         assertEquals("[]", mvcResult.getResponse().getContentAsString());
     }
 
@@ -45,12 +45,13 @@ class LibraryResourceTest {
     void returnListOfAvailableBooks() throws Exception {
         List<Book> books = TestHelper.getListOfBoks();
         when(library.getAvailableBooks()).thenReturn(books);
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/library/books")
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/library/books/available")
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
         verify(library, times(1)).getAvailableBooks();
         assertEquals(new ObjectMapper().writeValueAsString(books), mvcResult.getResponse().getContentAsString());
     }
+
 
     @Test
     void borrowBook() throws Exception {
@@ -59,4 +60,16 @@ class LibraryResourceTest {
                 .andReturn();
 
     }
+
+    @Test
+    void returnListOfAvailableBooksWithCopies() throws Exception {
+        List<Book> books = TestHelper.getListOfBoks();
+        when(library.getAvailableBooks()).thenReturn(books);
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/library/books/availableCopies")
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
+        verify(library, times(1)).getAvailableBooks();
+        assertEquals(new ObjectMapper().writeValueAsString(books), mvcResult.getResponse().getContentAsString());
+    }
+
 }

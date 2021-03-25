@@ -2,6 +2,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
+import Button from "web-app/interfaces/button";
 
 module('Integration | Component | book-listing', function(hooks) {
   setupRenderingTest(hooks);
@@ -14,7 +15,8 @@ module('Integration | Component | book-listing', function(hooks) {
    this.set('dummyAction', (actual) => {
       assert.equal(actual, "id1","Button click calls action with corresponding book id");
     });
-    await render(hbs`{{book-listing books=books buttonId='testId' buttonAction=(action dummyAction) buttonText='testName'}}`);
+    this.set('button',new Button('testName','testId'));
+    await render(hbs`{{book-listing books=books button=button buttonAction=(action dummyAction)}}`);
     assert.equal(3,$('#bookList thead th').length,'3 table headers rendered');
     assert.equal("S.No.",$('#bookList thead th:eq(0)').text(),'First header text is correct');
     assert.equal("Name",$('#bookList thead th:eq(1)').text(),'Second header text is correct');

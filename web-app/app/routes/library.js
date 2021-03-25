@@ -23,12 +23,15 @@ export default class LibraryRoute extends Route{
    }
 
    fetchAllBooks(){
+     this.controller.set("books", []);
+     this.controller.set('view','');
      let request = {
           type: 'GET',
-          url: "/api/library/books",
+          url: "/api/library/books/availableCopies",
           success: (books) => {
               this.controller.set('allBooks', true);
               this.controller.set("books", books);
+              this.controller.set('view','availableCopies');
           }
 
       };
@@ -36,6 +39,7 @@ export default class LibraryRoute extends Route{
    }
 
    fetchUserBooks(){
+   this.controller.set("books", []);
      let request = {
         type: 'GET',
         url: "/api/library/books/issued",

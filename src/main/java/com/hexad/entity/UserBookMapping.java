@@ -11,14 +11,14 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Document
-public class UserBook {
+public class UserBookMapping {
 
     @Id
     private String id;
     private String userId;
     private List<String> borrowedBooks = new ArrayList<>();
 
-    public UserBook(String userId, List<String> borrowedBooks) {
+    public UserBookMapping(String userId, List<String> borrowedBooks) {
         this.borrowedBooks = borrowedBooks;
         this.userId = userId;
     }

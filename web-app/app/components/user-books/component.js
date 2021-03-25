@@ -1,6 +1,8 @@
 import Component from '@ember/component';
 import {inject as service} from '@ember/service';
 import {action} from "@ember/object";
+import Button from "web-app/interfaces/button";
+
 export default class UserBooks extends Component{
 
   @service
@@ -8,6 +10,7 @@ export default class UserBooks extends Component{
 
   init(){
     super.init();
+    this.set('button',new Button('Return','return'));
   }
 
   @action
