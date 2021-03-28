@@ -30,7 +30,7 @@ export default class AllBooks extends Component{
   borrow(bookId){
     let request = {
         type: 'POST',
-        url: "/api/library/books/v2/"+bookId+"/borrow",
+        url: "/api/library/books/availableCopies/"+bookId+"/borrow",
         success: () => {
             this.set('messageData',{success:true,message:'Book issued successfully.'});
             if(this.callback){
