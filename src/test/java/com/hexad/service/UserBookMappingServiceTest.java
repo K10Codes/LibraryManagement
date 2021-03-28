@@ -97,4 +97,33 @@ class UserBookMappingServiceTest {
         assertEquals(BOOK_ID_2, userBookCaptor.getValue().getBorrowedBooks().get(0));
         assertEquals(BOOK_ID_1, userBookCaptor.getValue().getBorrowedBooks().get(1));
     }
+
+    @Test
+    void removeBookDoesNothingIfNoMappingFound() {
+        when(userBookMappingRepository.findByUserId(USER_1)).thenReturn(Optional.empty());
+        userBookMappingService.removeBookFromIssuedBooks(USER_1, mock(Book.class));
+        verify(userBookMappingRepository, never()).save(any(UserBookMapping.class));
+    }
+
+    @Test
+    void removeBookDoesNothingIfBookWasNotMapped() {
+        when(userBookMappingRepository.findByUserId(USER_1)).thenReturn(Optional.empty());
+        Book book = mock(Book.class);
+        when(book.getId()).thenReturn(BOOK_3);
+        userBookMappingService.removeBookFromIssuedBooks(USER_1, book);
+        verify(userBookMappingRepository, never()).save(any(UserBookMapping.class));
+    }
+
+    @Test
+    void removeBookFromIssuedList() {
+        UserBookMapping userBookMapping = getUserBook();
+        when(userBookMappingRepository.findByUserId(USER_1)).thenReturn(Optional.of(userBookMapping));
+        Book book = mock(Book.class);
+        when(book.getId()).thenReturn(BOOK_ID_1);
+        userBookMappingService.removeBookFromIssuedBooks(USER_1, book);
+        ArgumentCaptor<UserBookMapping> userBookCaptor = ArgumentCaptor.forClass(UserBookMapping.class);
+        verify(userBookMappingRepository, times(1)).save(userBookCaptor.capture());
+        assertEquals(1, userBookCaptor.getValue().getBorrowedBooks().size());
+        assertEquals(BOOK_ID_2, userBookCaptor.getValue().getBorrowedBooks().get(0));
+    }
 }

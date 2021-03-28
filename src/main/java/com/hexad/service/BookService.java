@@ -46,4 +46,9 @@ public class BookService {
         book.markIssued(true);
         this.save(book);
     }
+
+    public <T extends IssuableBook> void markAsAvailable(T book) {
+        book.markIssued(false);
+        this.save(book);
+    }
 }

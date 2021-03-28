@@ -93,4 +93,19 @@ class LibraryTest {
         verify(bookService, times(1)).issueBook(bookArgCaptor.capture());
         assertTrue(bookArgCaptor.getValue().canBeIssued());
     }
+
+
+    @Test
+    void returnBookRequest() throws Exception {
+        Book book = new MultiCopyBook(BOOK_ID_1, BOOK_1, AUTHOR_1, 2);
+        when(bookService.getBook(BOOK_ID_1)).thenReturn(book);
+        library.returnBookRequest(BOOK_ID_1, USER_1);
+        ArgumentCaptor<MultiCopyBook> bookArgCaptor = ArgumentCaptor.forClass(MultiCopyBook.class);
+        verify(userBookMappingService, times(1)).removeBookFromIssuedBooks(eq(USER_1), bookArgCaptor.capture());
+        assertEquals(2, bookArgCaptor.getValue().getCopies());
+        assertEquals(BOOK_ID_1, bookArgCaptor.getValue().getId());
+
+        verify(bookService, times(1)).markAsAvailable(bookArgCaptor.capture());
+        assertTrue(bookArgCaptor.getValue().canBeIssued());
+    }
 }

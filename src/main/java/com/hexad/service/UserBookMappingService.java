@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -35,10 +36,20 @@ public class UserBookMappingService {
         if (borrowedBooks.size() == 2) {
             throw new Exception("Can not issue more than 2 books");
         }
-        if(borrowedBooks.contains(book.getId())){
+        if (borrowedBooks.contains(book.getId())) {
             throw new Exception("This book has already been issued");
         }
         borrowedBooks.add(book.getId());
+        userBookMappingRepository.save(userBookMapping);
+    }
+
+    public void removeBookFromIssuedBooks(String userId, Book book) {
+        Optional<UserBookMapping> byUserId = userBookMappingRepository.findByUserId(userId);
+        if (byUserId.isEmpty()) {
+            return;
+        }
+        UserBookMapping userBookMapping = byUserId.get();
+        userBookMapping.getBorrowedBooks().remove(book.getId());
         userBookMappingRepository.save(userBookMapping);
     }
 }

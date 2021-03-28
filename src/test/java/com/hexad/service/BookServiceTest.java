@@ -93,4 +93,13 @@ class BookServiceTest {
         verify(bookRepository, times(1)).save(bookArgCaptor.capture());
         assertFalse(bookArgCaptor.getValue().canBeIssued());
     }
+
+    @Test
+    void markAsAvailable() {
+        IssuableBook book = new IssuableBook(BOOK_1, AUTHOR_1, true);
+        bookService.markAsAvailable(book);
+        ArgumentCaptor<IssuableBook> bookArgCaptor = ArgumentCaptor.forClass(IssuableBook.class);
+        verify(bookRepository, times(1)).save(bookArgCaptor.capture());
+        assertTrue(bookArgCaptor.getValue().canBeIssued());
+    }
 }

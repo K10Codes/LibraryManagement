@@ -21,7 +21,7 @@ public class MultiCopyBook extends IssuableBook {
 
     public MultiCopyBook(Book book) {
         super(book);
-        if (book instanceof MultiCopyBook) {
+        if (book.getClass() == this.getClass()) {
             this.copies = ((MultiCopyBook) book).getCopies();
         } else {
             this.copies = 1;

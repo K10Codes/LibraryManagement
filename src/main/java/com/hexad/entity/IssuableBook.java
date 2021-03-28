@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class IssuableBook extends Book {
 
-    @Getter(AccessLevel.PRIVATE)
+    @Getter(AccessLevel.NONE)
     private boolean isIssued;
 
     public IssuableBook(String name, String author) {
@@ -23,8 +23,8 @@ public class IssuableBook extends Book {
     public IssuableBook(Book book) {
         this(book.getName(), book.getAuthor());
         this.setId(book.getId());
-        if (book instanceof IssuableBook) {
-            this.isIssued = ((IssuableBook) book).isIssued();
+        if (book.getClass() == this.getClass()) {
+            this.isIssued = !((IssuableBook) book).canBeIssued();
         } else {
             this.isIssued = false;
         }

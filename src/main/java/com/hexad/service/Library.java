@@ -51,8 +51,9 @@ public class Library {
     }
 
 
-    public void takeReturnBookRequest(String bookId, String userId) throws Exception {
-        Book book = bookService.getBook(bookId);
-
+    public void returnBookRequest(String bookId, String userId) throws Exception {
+        IssuableBook book = (IssuableBook) bookService.getBook(bookId);
+        userBookMappingService.removeBookFromIssuedBooks(userId, book);
+        bookService.markAsAvailable(book);
     }
 }

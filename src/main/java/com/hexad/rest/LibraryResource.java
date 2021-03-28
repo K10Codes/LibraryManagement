@@ -28,31 +28,31 @@ public class LibraryResource {
     }
 
 
-    @GetMapping(value = "/availableCopies", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<MultiCopyBook> getAvailableBookCopies() {
-        return library.getAvailableBookCopies();
-    }
 
-
-    @PostMapping(value = "/{bookId}/borrow")
+    @PostMapping(value = "/available/{bookId}/borrow")
     public void borrowBook(@PathVariable String bookId) throws Exception {
         library.issueBookToUser(bookId, getLoggedInUser());
     }
 
-
-    @PostMapping(value = "/v2/{bookId}/borrow")
-    public void borrowBookCopy(@PathVariable String bookId) throws Exception {
-        library.issueBookCopyToUser(bookId, getLoggedInUser());
-    }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/issued")
     public List<Book> getBooksIssuedToUser() {
         return library.getBooksIssuedToUser(getLoggedInUser());
     }
 
+    @GetMapping(value = "/availableCopies", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<MultiCopyBook> getAvailableBookCopies() {
+        return library.getAvailableBookCopies();
+    }
+
+    @PostMapping(value = "/availableCopies/{bookId}/borrow")
+    public void borrowBookCopy(@PathVariable String bookId) throws Exception {
+        library.issueBookCopyToUser(bookId, getLoggedInUser());
+    }
+
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, value = "/{bookId}/return")
     public void returnBook(@PathVariable String bookId) throws Exception {
-        library.takeReturnBookRequest(bookId,getLoggedInUser());
+        library.returnBookRequest(bookId,getLoggedInUser());
     }
 
 
