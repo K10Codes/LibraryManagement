@@ -1,0 +1,32 @@
+
+Running without permission to symlink will degrade build performance.
+See https://cli.emberjs.com/release/appendix/windows/ for details.
+
+Environment: test
+cleaning up...
+Built project successfully. Stored in "D:\hexad-assignment\LibraryManagement\web-app\tmp\ember-ci-build.tmp".
+ok 1 Chrome 89.0 - [493 ms] - Integration | Component | all-books: it renders list of all books
+ok 2 Chrome 89.0 - [84 ms] - Integration | Component | all-books: it renders list of available books with borrow button
+ok 3 Chrome 89.0 - [2577 ms] - Integration | Component | all-books: user can borrow a book
+ok 4 Chrome 89.0 - [101 ms] - Integration | Component | all-books: it renders list of available books with copies and borrow button
+ok 5 Chrome 89.0 - [89 ms] - Integration | Component | book-listing: renders book list with button
+ok 6 Chrome 89.0 - [89 ms] - Integration | Component | user-books: it renders list of books
+ok 7 Chrome 89.0 - [2577 ms] - Integration | Component | user-books: user can return a book
+    ---
+        browser log: |
+            {"type":"warn","text":"DEPRECATION: You called <web-app@component:user-books::ember203>.sendAction(\"callback\") but Component#sendAction is deprecated. Please use closure actions instead. [deprecation id: ember-component.send-action] See https://emberjs.com/deprecations/v3.x#toc_ember-component-send-action for more details.\n        at logDeprecationStackTrace (http://localhost:7357/assets/vendor.js:44633:21)\n        at HANDLERS.<computed> (http://localhost:7357/assets/vendor.js:44766:9)\n        at raiseOnDeprecation (http://localhost:7357/assets/vendor.js:44660:9)\n        at HANDLERS.<computed> (http://localhost:7357/assets/vendor.js:44766:9)\n        at invoke (http://localhost:7357/assets/vendor.js:44778:9)\n        at deprecate (http://localhost:7357/assets/vendor.js:44734:28)\n        at UserBooks.sendAction (http://localhost:7357/assets/vendor.js:39903:49)\n        at Object.success (http://localhost:7357/assets/web-app.js:277:16)\n        at Class.makeAjaxRequest (http://localhost:7357/assets/tests.js:176:21)"}
+    ...
+ok 8 Chrome 89.0 - [38 ms] - Unit | Route | index: it exists
+ok 9 Chrome 89.0 - [28 ms] - Unit | Route | library: it exists
+ok 10 Chrome 89.0 - [28 ms] - Unit | Route | test-route: it exists
+ok 11 Chrome 89.0 - [40 ms] - Unit | Service | ajax-request: it exists
+ok 12 Chrome 89.0 - [1 ms] - ember-qunit: Ember.onerror validation: Ember.onerror is functioning properly
+
+1..12
+# tests 12
+# pass  12
+# skip  0
+# todo  0
+# fail  0
+
+# ok

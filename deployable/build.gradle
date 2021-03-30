@@ -1,0 +1,65 @@
+
+apply plugin: 'org.springframework.boot'
+
+
+configurations {
+    js
+}
+
+dependencies {
+    compile project(':services')
+    implementation 'org.springframework.boot:spring-boot-starter'
+    js project(path: ':web-app', configuration: 'js')
+}
+
+def mainResourcesDir ="$projectDir/src/main/resources"
+
+clean {
+    file("$mainResourcesDir").deleteDir()
+}
+
+
+task unpackJsProjects(type: Copy, dependsOn: configurations.js.buildDependencies) {
+    def zips = configurations.js.collect {
+        zipTree it
+    }
+
+    from zips, {
+        include 'index.html'
+        into 'templates'
+    }
+
+    from zips, {
+        include 'index.html'
+        into 'static/'
+    }
+
+    from zips, {
+        include 'assets/**'
+        into 'static/'
+    }
+
+    from zips, {
+        include '*.js'
+        into 'static/'
+    }
+
+    from zips, {
+        include 'images/**'
+        into 'static/'
+    }
+
+    from zips, {
+        include 'fonts/**'
+        into 'static/'
+    }
+
+    from zips, {
+        include 'helpdocs/**'
+        into 'static/'
+    }
+
+    destinationDir new File("$mainResourcesDir")
+}
+
+processResources.dependsOn 'unpackJsProjects'

@@ -1,0 +1,35 @@
+task updatetestemconfig(type: Copy) {
+  group 'Testem Update'
+  description 'Updates testem file on fly'
+
+  println 'Update testem called'
+
+  from '.'
+  include 'testem.js'
+  into '/config'
+  expand([
+    hostname: "localhost"
+  ])
+}
+
+buildscript {
+  repositories {
+    jcenter()
+    mavenLocal()
+  }
+  dependencies {
+    classpath('com.kiefer.gradle:ember-cli-gradle-plugin:4.0.0')
+  }
+}
+
+apply plugin: 'com.kiefer.gradle.embercli'
+embercli {
+  testCommand = 'test'
+  testArguments = ['--test-port=7357', '--output-path=tmp/ember-ci-build.tmp']
+}
+
+
+clean {
+  println ":web-app:clean called, but is disabled to avoid removing files from public/, app/, etc."
+  delete = []
+}

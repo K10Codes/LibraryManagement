@@ -13,7 +13,7 @@ module('Integration | Component | all-books', function(hooks) {
     const ajaxRequest = Service.extend({
       makeAjaxRequest(request){
         if(request.type=='POST'){
-          assert.equal(true,request.url =="/api/library/books/v2/id1/borrow",'Book id for borrow request is correct');
+          assert.equal(true,request.url.includes("/id1/borrow"),'Book id for borrow request is correct');
           request.success();
         }
       }
@@ -48,7 +48,7 @@ module('Integration | Component | all-books', function(hooks) {
     await render(hbs`{{all-books books=books view='availableCopies' ajaxRequest=ajaxRequest}}`);
     assert.equal(2,$('#bookList tr').length,'One row for each book rendered');
     assert.equal(5,$('#bookList tr:first td').length,'Four columns for each book rendered.');
-    assert.equal("Borrow",$('table tr:first td:last button').text(),'Borrow book button visible.');
+    assert.equal("Borrow",$('#bookList tr td:last button').text(),'Borrow book button visible.');
   });
 
 });

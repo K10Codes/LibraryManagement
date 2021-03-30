@@ -1,2 +1,5 @@
 rootProject.name = 'library-management'
+include 'services'
+include 'web-app'
+include 'deployable'
 
