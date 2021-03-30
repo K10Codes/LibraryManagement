@@ -22,19 +22,14 @@ The operations like borrow book, return book etc. modify the same in-memory list
 3. In-memory Mongo DB.
 4. Gradle
 
-### Building
-Right now, this app is to built as UI and backend separate.
-For backend :
-* Run `gradlew clean build` from within the root directory. This would run
-a spring boot application hosted on port 8080.
- 
-For UI :
-* Run `ember s --proxy "http://localhost:8080"` inside the 'web-app' directory to build the UI for the project .
+### Build
+* Run `gradlew clean build` from the root directory to build the project.
+* Run `gradlew bootRun` from the root directory. This would host an instance of the application on 8080 port.
 
 
 ## Running
 
-* Visit the app at [http://localhost:4200](http://localhost:4200).
+* Visit the app at [http://localhost:8080](http://localhost:8080).
 
 
 ##Design Thoughts/Approach :
